@@ -7,7 +7,7 @@
         Your list of contacts appear here. To add a new contact, click on the
         Add New Contact button.
       </p>
-      <button @click="onOpenFormModal">Add New Contact</button>
+      <button @click="openFormModal">Add New Contact</button>
     </div>
 
     <div class="toggle-icons">
@@ -32,23 +32,72 @@
         v-for="contact in allContacts"
         :key="contact"
         :contact-info="contact"
+        @delete-contact="onDeleteContact(contact)"
       />
     </div>
 
-    <new-contact v-if="openFormModal" :closeFormModal="onCloseFormModal" />
+    <div class="contact-table" v-if="viewType === 'table'">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Contact Number</th>
+            <th>Email Address</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="cont in allContacts" :key="cont.id">
+            <td>
+              <router-link
+                to="/routePath"
+                routerLinkActive="router-link-active"
+                >{{ cont.name }}</router-link
+              >
+            </td>
+            <td>{{ cont.contact_no }}</td>
+            <td>{{ cont.email }}</td>
+            <td>
+              <span class="action-buttons">
+                <button @click="openFormModal(cont)">
+                  <span class="material-symbols-outlined"> edit </span>
+                </button>
+                <button @click="onDeleteContact(cont)">
+                  <span class="material-symbols-outlined"> delete </span>
+                </button>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <new-contact
+      v-if="isFormOpen"
+      @close-modal="closFormModal"
+      :form-action="action"
+    />
   </section>
 </template>
 
 <script>
-import contactService from "@/services/contactService";
+import { useContactsStore } from "@/stores/contactStore";
 
 export default {
   data() {
     return {
-      allContacts: [],
       viewType: "card",
-      openFormModal: false,
+      isFormOpen: false,
+      action: null,
     };
+  },
+  computed: {
+    contactStore() {
+      return useContactsStore();
+    },
+    allContacts() {
+      return this.contactStore.contacts;
+    },
   },
   methods: {
     onSelectViewType(type) {
@@ -57,19 +106,30 @@ export default {
 
     async getAllContacts() {
       try {
-        const response = await contactService.getContacts();
-        this.allContacts = response.data;
+        await this.contactStore.fetchAllContacts();
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching contacts:", error);
       }
     },
 
-    onOpenFormModal() {
-      this.openFormModal = true;
+    openFormModal(contactInfo) {
+      console.log(contactInfo);
+      this.action = "add";
+      this.isFormOpen = true;
     },
-    onCloseFormModal() {
-      console.log("triggered");
-      this.openFormModal = false;
+
+    closFormModal() {
+      this.action = null;
+      this.isFormOpen = false;
+    },
+
+    async onDeleteContact(contactInfo) {
+      try {
+        await this.contactStore.deleteContact(contactInfo.id);
+        this.getAllContacts();
+      } catch (error) {
+        console.error("Error fetching contacts:", error);
+      }
     },
   },
   created() {

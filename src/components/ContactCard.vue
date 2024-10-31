@@ -9,7 +9,9 @@
           <span class="material-symbols-outlined"> edit </span>
         </button>
         <button>
-          <span class="material-symbols-outlined"> delete </span>
+          <span class="material-symbols-outlined" @click="onDelete">
+            delete
+          </span>
         </button>
       </p>
     </div>
@@ -21,7 +23,11 @@
 <script>
 export default {
   props: ["contactInfo"],
-  methods: {},
+  methods: {
+    onDelete() {
+      this.$emit("delete-contact");
+    },
+  },
 };
 </script>
 
@@ -36,6 +42,7 @@ export default {
 .contact-header {
   display: flex;
   justify-content: space-between;
+  padding: 0;
 }
 .contact-header p {
   margin: 0;
@@ -58,12 +65,15 @@ a {
 .action-buttons {
   display: flex;
   justify-content: end;
-  gap: 1em;
+  gap: 0.3em;
 }
 
 .action-buttons button {
   background-color: transparent;
   border: none;
+  padding-bottom: 0;
+  padding-top: 0;
+  padding-right: 0;
 }
 
 .action-buttons .material-symbols-outlined {

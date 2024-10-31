@@ -1,12 +1,6 @@
 {
   "contacts": [
     {
-      "name": "Jay Contrerasas",
-      "email": "kamikazeegod@gmail.com",
-      "contact_no": "09171234567",
-      "id": "1"
-    },
-    {
       "id": "2",
       "name": "Jason Astete",
       "email": "jason_the_menace@gmail.com",
@@ -47,6 +41,42 @@
       "email": "sep_of_typecast@gmail.com",
       "contact_no": "09174441234",
       "id": "9"
+    },
+    {
+      "id": "15",
+      "name": "mayr",
+      "contact_no": "09128283282",
+      "email": "may@email.com"
+    },
+    {
+      "id": "12",
+      "name": "mama",
+      "contact_no": "09129387203",
+      "email": "mama@email.com"
+    },
+    {
+      "id": "12",
+      "name": "me",
+      "contact_no": "09239283232",
+      "email": "maywose@email.com"
+    },
+    {
+      "id": "19",
+      "name": "ha",
+      "contact_no": "01921219282",
+      "email": "ha@email.com"
+    },
+    {
+      "id": "12",
+      "name": "ha",
+      "contact_no": "01921219282",
+      "email": "ha@email.com"
+    },
+    {
+      "id": "14",
+      "name": "he",
+      "contact_no": "09129182191",
+      "email": "he@email.com"
     }
   ]
 }
