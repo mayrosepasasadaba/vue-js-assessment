@@ -66,6 +66,7 @@
           @click="saveChanges()"
           class="save-button"
           v-if="formAction === 'edit'"
+          :disabled="v$.$invalid"
         >
           Save Changes
         </button>
@@ -86,7 +87,7 @@ const elevenDigits = helpers.withParams(
 );
 
 export default {
-  props: ["formAction"],
+  props: ["formAction", "defaultFormValues"],
   setup() {
     return { v$: useVuelidate() };
   },
@@ -94,6 +95,7 @@ export default {
     return {
       contactStore: useContactsStore(),
       formValues: {
+        id: "",
         name: "",
         contact_no: "",
         email: "",
@@ -120,8 +122,17 @@ export default {
       }
     },
 
-    saveChanges() {
-      console.log(this.formValues);
+    async saveChanges() {
+      try {
+        await this.contactStore.updateContact(
+          this.defaultFormValues.id,
+          this.formValues
+        );
+        this.contactStore.getAllContacts();
+        this.closeModal();
+      } catch (error) {
+        console.error("Error fetching contacts:", error);
+      }
     },
 
     closeModal() {
@@ -148,7 +159,9 @@ export default {
       }
     },
   },
-  mounted() {},
+  mounted() {
+    this.formValues = this.defaultFormValues;
+  },
 };
 </script>
 

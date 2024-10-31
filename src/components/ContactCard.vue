@@ -1,12 +1,15 @@
 <template>
   <div class="contact-card">
     <div class="contact-header">
-      <a class="contact-name">
-        <span>{{ contactInfo.name }}</span>
-      </a>
+      <router-link
+        :to="`/view/${contactInfo.id}`"
+        routerLinkActive="router-link-active"
+        class="contact-name"
+        ><span>{{ contactInfo.name }}</span></router-link
+      >
       <p class="action-buttons">
         <button>
-          <span class="material-symbols-outlined"> edit </span>
+          <span class="material-symbols-outlined" @click="onEdit"> edit </span>
         </button>
         <button>
           <span class="material-symbols-outlined" @click="onDelete">
@@ -26,6 +29,9 @@ export default {
   methods: {
     onDelete() {
       this.$emit("delete-contact");
+    },
+    onEdit() {
+      this.$emit("edit-contact");
     },
   },
 };

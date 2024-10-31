@@ -2,12 +2,14 @@
   <section class="gold-bg">
     <h2>Contacts Information</h2>
 
-    <div class="container">
+    <div class="header-container">
       <p>
         Your list of contacts appear here. To add a new contact, click on the
         Add New Contact button.
       </p>
-      <button @click="openFormModal">Add New Contact</button>
+      <button @click="openFormModal(defaultFormValues, 'add')">
+        Add New Contact
+      </button>
     </div>
 
     <div class="toggle-icons">
@@ -33,6 +35,7 @@
         :key="contact"
         :contact-info="contact"
         @delete-contact="onDeleteContact(contact)"
+        @edit-contact="openFormModal(contact, 'edit')"
       />
     </div>
 
@@ -50,7 +53,7 @@
           <tr v-for="cont in allContacts" :key="cont.id">
             <td>
               <router-link
-                to="/routePath"
+                :to="`/view/${cont.id}`"
                 routerLinkActive="router-link-active"
                 >{{ cont.name }}</router-link
               >
@@ -59,7 +62,7 @@
             <td>{{ cont.email }}</td>
             <td>
               <span class="action-buttons">
-                <button @click="openFormModal(cont)">
+                <button @click="openFormModal(cont, 'edit')">
                   <span class="material-symbols-outlined"> edit </span>
                 </button>
                 <button @click="onDeleteContact(cont)">
@@ -76,6 +79,7 @@
       v-if="isFormOpen"
       @close-modal="closFormModal"
       :form-action="action"
+      :defaultFormValues="formValues"
     />
   </section>
 </template>
@@ -89,6 +93,13 @@ export default {
       viewType: "card",
       isFormOpen: false,
       action: null,
+      defaultFormValues: {
+        id: "",
+        name: "",
+        email: "",
+        contact_no: "",
+      },
+      formValues: this.defaultFormValues,
     };
   },
   computed: {
@@ -112,9 +123,9 @@ export default {
       }
     },
 
-    openFormModal(contactInfo) {
-      console.log(contactInfo);
-      this.action = "add";
+    openFormModal(contactInfo, action) {
+      this.formValues = contactInfo;
+      this.action = action;
       this.isFormOpen = true;
     },
 
@@ -209,13 +220,13 @@ a {
   font-size: 1.2em;
 }
 
-.container {
+.header-container {
   display: grid;
   grid-template-columns: 6fr 1fr;
   align-items: center;
 }
 
-.container button {
+.header-container button {
   background: var(--secondary-color);
   color: white;
   padding: 5% 0;
@@ -231,7 +242,7 @@ a {
     font-size: 4vw;
   }
 
-  .container {
+  .header-container {
     grid-template-columns: 2fr 1fr;
   }
   .container p {

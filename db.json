@@ -49,18 +49,6 @@
       "email": "may@email.com"
     },
     {
-      "id": "12",
-      "name": "mama",
-      "contact_no": "09129387203",
-      "email": "mama@email.com"
-    },
-    {
-      "id": "12",
-      "name": "me",
-      "contact_no": "09239283232",
-      "email": "maywose@email.com"
-    },
-    {
       "id": "19",
       "name": "ha",
       "contact_no": "01921219282",
@@ -74,9 +62,9 @@
     },
     {
       "id": "14",
-      "name": "he",
-      "contact_no": "09129182191",
-      "email": "he@email.com"
+      "name": "MARC FRANCES",
+      "contact_no": "09218373622",
+      "email": "marc@email.com"
     }
   ]
 }

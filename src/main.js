@@ -6,6 +6,8 @@ import "./index.css";
 import ContactPage from "./components/ContactPage.vue";
 import ContactCard from "./components/ContactCard.vue";
 import NewContact from "./components/NewContact.vue";
+import ViewContact from "./components/ViewContact.vue";
+import PageNotFound from "./components/PageNotFound.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -13,6 +15,19 @@ const router = createRouter({
     {
       path: "/",
       component: ContactPage,
+    },
+    {
+      path: "/view/:contactId",
+      component: ViewContact,
+      props: true,
+    },
+    {
+      path: "/home",
+      redirect: "/",
+    },
+    {
+      path: "/:notFound(.*)",
+      component: PageNotFound,
     },
   ],
 });
