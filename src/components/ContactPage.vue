@@ -86,6 +86,7 @@
 
 <script>
 import { useContactsStore } from "@/stores/contactStore";
+import { showAlert } from "@/shared/alertEvent";
 
 export default {
   data() {
@@ -137,9 +138,10 @@ export default {
     async onDeleteContact(contactInfo) {
       try {
         await this.contactStore.deleteContact(contactInfo.id);
+        showAlert("Successfully deleted contact!", "success");
         this.getAllContacts();
       } catch (error) {
-        console.error("Error fetching contacts:", error);
+        showAlert("Error in deleting contact", "error");
       }
     },
   },

@@ -39,14 +39,13 @@ export const useContactsStore = defineStore("contacts", {
     async createContact(newContact) {
       try {
         const randomWholeNumber =
-          Math.floor(Math.random() * (20 - 10 + 1)) + 10;
+          Math.floor(Math.random() * (50 - 10 + 1)) + 10;
         const newData = {
-          id: randomWholeNumber.toString(),
           ...newContact,
+          id: randomWholeNumber.toString(),
         };
         const response = await httpClient.post("/contacts", newData);
         return response.data;
-        //   this.contacts.push(response.data); // Add new contact to the list
       } catch (error) {
         console.error("Error creating contact:", error);
         throw error;

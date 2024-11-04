@@ -10,15 +10,15 @@
       <div class="row info-row">
         <div>
           <span>First Name</span>
-          <h3>{{ userInfo.name }}</h3>
+          <h3>{{ contactInfo.name }}</h3>
         </div>
         <div>
           <span>Email Address</span>
-          <h3>{{ userInfo.email }}</h3>
+          <h3>{{ contactInfo.email }}</h3>
         </div>
         <div>
           <span>Contact Number</span>
-          <h3>{{ formatContactNumber(userInfo.contact_no) }}</h3>
+          <h3>{{ formatContactNumber(contactInfo.contact_no) }}</h3>
         </div>
       </div>
     </article>
@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       contactStore: useContactsStore(),
-      userInfo: {
+      contactInfo: {
         id: "",
         name: "",
         email: "",
@@ -45,7 +45,7 @@ export default {
     async getContactInfo() {
       try {
         const response = await this.contactStore.fetchContact(this.contactId);
-        this.userInfo = response;
+        this.contactInfo = response;
       } catch (error) {
         console.log(error);
       }

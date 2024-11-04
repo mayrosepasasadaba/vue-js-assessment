@@ -18,23 +18,6 @@
       </div>
 
       <div class="vertical">
-        <label for="email">Email</label>
-        <input
-          v-model.trim="formValues.email"
-          @blur="v$.formValues.email.$touch()"
-        />
-        <div
-          class="control-error"
-          v-for="error of v$.formValues.email.$errors"
-          :key="error.$uid"
-        >
-          <div class="control-error">
-            {{ getErrorMessage(error, "Email address") }}
-          </div>
-        </div>
-      </div>
-
-      <div class="vertical">
         <label for="contact_no">Contact Number</label>
         <input
           v-model.trim="formValues.contact_no"
@@ -48,6 +31,23 @@
         >
           <div class="control-error">
             {{ getErrorMessage(error, "contact number") }}
+          </div>
+        </div>
+      </div>
+
+      <div class="vertical">
+        <label for="email">Email address</label>
+        <input
+          v-model.trim="formValues.email"
+          @blur="v$.formValues.email.$touch()"
+        />
+        <div
+          class="control-error"
+          v-for="error of v$.formValues.email.$errors"
+          :key="error.$uid"
+        >
+          <div class="control-error">
+            {{ getErrorMessage(error, "Email address") }}
           </div>
         </div>
       </div>
@@ -79,6 +79,7 @@
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
 import { useContactsStore } from "@/stores/contactStore";
+import { showAlert } from "@/shared/alertEvent";
 
 // Custom validator for length of 11
 const elevenDigits = helpers.withParams(
@@ -115,9 +116,11 @@ export default {
     async submitForm() {
       try {
         await this.contactStore.createContact(this.formValues);
+        showAlert("Successfully added a new contact!", "success");
         this.contactStore.getAllContacts();
         this.closeModal();
       } catch (error) {
+        showAlert("Error in adding a new contact", "error");
         console.error("Error fetching contacts:", error);
       }
     },
@@ -128,10 +131,12 @@ export default {
           this.defaultFormValues.id,
           this.formValues
         );
+        showAlert("Changes saved", "success");
         this.contactStore.getAllContacts();
         this.closeModal();
       } catch (error) {
-        console.error("Error fetching contacts:", error);
+        showAlert("Error in saving changes", "error");
+        // console.error("Error fetching contacts:", error);
       }
     },
 
@@ -178,7 +183,7 @@ export default {
 
 dialog {
   width: 100%;
-  max-width: 20rem;
+  max-width: 25rem;
   background-color: white;
   border-radius: 6px;
   border: none;
