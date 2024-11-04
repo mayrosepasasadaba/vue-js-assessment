@@ -107,7 +107,18 @@ export default {
     return {
       formValues: {
         name: { required },
-        contact_no: { required, elevenDigits },
+        contact_no: {
+          required,
+          elevenDigits: helpers.withMessage(
+            "Contact number must only contain 11 digits",
+            (value) => {
+              // Only check elevenDigits if the field is non-empty
+              return (
+                !required.$validator(value) || elevenDigits.$validator(value)
+              );
+            }
+          ),
+        },
         email: { required, email },
       },
     };
@@ -204,7 +215,7 @@ form {
 }
 .vertical label {
   margin-bottom: 0.5rem;
-  font-weight: bolder;
+  font-weight: 500;
 }
 
 .vertical input {
