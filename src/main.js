@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import { createPinia } from "pinia";
 import App from "./App.vue";
 import "./index.css";
-import ContactPage from "./components/ContactPage.vue";
+import ContactsInformation from "./components/ContactsInformation.vue";
 import ContactCard from "./components/ContactCard.vue";
 import NewContact from "./components/NewContact.vue";
 import ViewContact from "./components/ViewContact.vue";
@@ -15,7 +15,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      component: ContactPage,
+      component: ContactsInformation,
     },
     {
       path: "/view/:contactId",

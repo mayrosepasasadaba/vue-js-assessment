@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 
 const httpClient = axios.create({
-  baseURL: "http://localhost:3000", // Base URL for json-server or your API
+  baseURL: "http://localhost:3001", // Base URL for json-server or your API
   headers: {
     "Content-Type": "application/json",
   },

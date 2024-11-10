@@ -89,12 +89,10 @@ const elevenDigits = helpers.withParams(
 
 export default {
   props: ["formAction", "defaultFormValues"],
-  setup() {
-    return { v$: useVuelidate() };
-  },
   data() {
     return {
       contactStore: useContactsStore(),
+      v$: useVuelidate(),
       formValues: {
         id: "",
         name: "",
@@ -167,7 +165,7 @@ export default {
         case "required":
           return `Please enter ${field}`;
         case "email":
-          return "Please enter a valid Email dddress";
+          return "Please enter a valid Email address";
         case "elevenDigits":
           return "Contact number must contain 11 digits";
         default:

@@ -13,9 +13,7 @@ import { state } from "./shared/alertEvent";
 
 export default {
   name: "App",
-  components: {
-    // HelloWorld,
-  },
+  components: {},
   computed: {
     alertState() {
       return state.alert;

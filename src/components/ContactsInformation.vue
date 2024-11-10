@@ -77,7 +77,7 @@
 
     <new-contact
       v-if="isFormOpen"
-      @close-modal="closFormModal"
+      @close-modal="closeFormModal"
       :form-action="action"
       :defaultFormValues="formValues"
     />
@@ -130,7 +130,7 @@ export default {
       this.isFormOpen = true;
     },
 
-    closFormModal() {
+    closeFormModal() {
       this.action = null;
       this.isFormOpen = false;
     },
