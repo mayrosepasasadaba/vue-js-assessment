@@ -222,6 +222,11 @@ a {
   font-size: 1.2em;
 }
 
+.contact-table .action-buttons {
+  display: flex;
+  justify-content: center;
+}
+
 .header-container {
   display: grid;
   grid-template-columns: 6fr 1fr;
